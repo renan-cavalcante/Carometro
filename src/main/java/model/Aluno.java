@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,11 +16,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 @Entity
 public class Aluno implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	@Transient
+	private final DateTimeFormatter  ANO_MES = DateTimeFormatter.ofPattern("yyyy/MM");
+	
 	@Id
 	// @GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private String ra;
@@ -27,6 +32,8 @@ public class Aluno implements Serializable {
 	private String curso;
 	private YearMonth semestreConclusao;
 	private String foto;
+	
+	
 
 	@ElementCollection
 	@CollectionTable(name = "aluno_links", joinColumns = @JoinColumn(name = "aluno_ra"))
@@ -70,12 +77,12 @@ public class Aluno implements Serializable {
 		this.curso = curso;
 	}
 
-	public YearMonth getSemestreConclusao() {
-		return semestreConclusao;
+	public String getSemestreConclusao() {
+		return semestreConclusao.format(ANO_MES);
 	}
 
-	public void setSemestreConclusao(YearMonth semestreConclusao) {
-		this.semestreConclusao = semestreConclusao;
+	public void setSemestreConclusao(String semestreConclusao) {
+		this.semestreConclusao = YearMonth.parse(semestreConclusao,ANO_MES);
 	}
 
 	public String getFoto() {
@@ -129,7 +136,7 @@ public class Aluno implements Serializable {
 			comentariosStr.append(": ");
 			comentariosStr.append(comentarios.get(tipo));
 		}
-		return "Aluno [ra=" + ra + ", nome=" + nome + ", curso=" + curso + ", semestreConclusao=" + semestreConclusao
+		return "Aluno [ra=" + ra + ", nome=" + nome + ", curso=" + curso + ", semestreConclusao=" + getSemestreConclusao()
 				+ ", foto=" + foto + ", links=" + links + ",\nhistorico=" + historico + ", \ncomentarios={"
 				+ comentariosStr.toString() + "}]";
 	}

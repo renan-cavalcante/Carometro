@@ -24,7 +24,7 @@ public class Comentario implements Serializable {
 	// @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String descricao;
-	private LocalDate data;
+	private LocalDate data = LocalDate.now();
 	@Enumerated(EnumType.STRING)
     @Column(name = "tipo")
 	private Tipo tipo;

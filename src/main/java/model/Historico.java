@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,11 +10,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 @Entity
 public class Historico implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	@Transient
+	private final DateTimeFormatter  ANO_MES = DateTimeFormatter.ofPattern("y,MM");
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -55,14 +59,16 @@ public class Historico implements Serializable {
 		this.atividade = atividade;
 	}
 
-	public YearMonth getTempoEmpresa() {
-		return tempoEmpresa;
+	public String getTempoEmpresa() {
+		return tempoEmpresa.format(ANO_MES);
 	}
 
-	public void setTempoEmpresa(YearMonth tempoEmpresa) {
-		this.tempoEmpresa = tempoEmpresa;
+	public void setTempoEmpresa(String tempoEmpresa) {
+		this.tempoEmpresa = YearMonth.of(
+			    Integer.parseInt(tempoEmpresa.split(",")[0]),  
+			    Integer.parseInt(tempoEmpresa.split(",")[1])   
+			);
 	}
-
 	public Aluno getAluno() {
 		return aluno;
 	}
@@ -74,7 +80,7 @@ public class Historico implements Serializable {
 	@Override
 	public String toString() {
 		return "Historico [id=" + id + ", empresa=" + empresa + ", atividade=" + atividade + ", tempoEmpresa="
-				+ tempoEmpresa + "]";
+				+ getTempoEmpresa() + "]";
 	}
 
 }
