@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 import enums.Tipo;
 
@@ -19,6 +21,9 @@ import enums.Tipo;
 public class Comentario implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	@Transient
+	private final DateTimeFormatter  DIA_MES_ANO = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	// @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,6 +60,10 @@ public class Comentario implements Serializable {
 	public LocalDate getData() {
 		return data;
 	}
+	public String getDataFormat() {
+		return data.format(DIA_MES_ANO);
+	}
+
 
 	public void setData(LocalDate data) {
 		this.data = data;
@@ -78,7 +87,7 @@ public class Comentario implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Comentario [id=" + id + ", descricao=" + descricao + ", data=" + data + ", tipo=" + tipo + "]";
+		return "Comentario [id=" + id + ", descricao=" + descricao + ", data=" + getDataFormat() + ", tipo=" + tipo + "]";
 	}
 
 }

@@ -58,9 +58,17 @@ public class Historico implements Serializable {
 	public void setAtividade(String atividade) {
 		this.atividade = atividade;
 	}
-
+	
+	public YearMonth getTempoEmpresaFormat() {
+		return tempoEmpresa;
+	}
+	
 	public String getTempoEmpresa() {
 		return tempoEmpresa.format(ANO_MES);
+	}
+	
+	public void setTempoEmpresa(YearMonth tempoEmpresa) {
+		this.tempoEmpresa = tempoEmpresa;
 	}
 
 	public void setTempoEmpresa(String tempoEmpresa) {
@@ -80,7 +88,7 @@ public class Historico implements Serializable {
 	@Override
 	public String toString() {
 		return "Historico [id=" + id + ", empresa=" + empresa + ", atividade=" + atividade + ", tempoEmpresa="
-				+ getTempoEmpresa() + "]";
+				+ getTempoEmpresa() + "]" + getTempoEmpresaFormat();
 	}
 
 }

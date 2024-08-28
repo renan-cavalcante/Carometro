@@ -103,7 +103,6 @@ public class AlunoDao implements IAlunoDao {
 				Hibernate.initialize(aluno.getLinks());
 				Hibernate.initialize(aluno.getComentarios());
 				Hibernate.initialize(aluno.getHistorico());
-
 			}
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
