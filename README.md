@@ -8,4 +8,4 @@ Este Sistema foi concebido desde a modelagem até o momento de sua implementaç�
 ---
 
 ## VCP - Visão de Classe Participante do Sistema
-![VCP - CARÔMETRO](https://github.com/user-attachments/assets/d181aaae-9822-4e8f-bc09-321d7032487b)
+![VCP - CARÔMETRO](https://github.com/user-attachments/assets/476809c8-8578-4169-a39c-cfe2527b3f31)
