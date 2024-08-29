@@ -15,6 +15,7 @@ public class Main {
 		AlunoController dao = new AlunoController();
 
 		Scanner sc = new Scanner(System.in);
+		boolean teste = true;
 		do {
 			System.out.println("Escolha uma opção");
 			System.out.println("1 - Inserir aluno");
@@ -26,7 +27,6 @@ public class Main {
 
 			int opcao = sc.nextInt();
 			sc.nextLine(); // Consumir a nova linha
-
 			switch (opcao) {
 			case 1:
 				try {
@@ -177,13 +177,14 @@ public class Main {
 				// Sair
 				System.out.println("Saindo...");
 				sc.close();
+				teste = false;
 				break;
 
 			default:
 				System.out.println("Opção inválida! Tente novamente.");
 				break;
 			}
-		} while (true);
+		} while (teste == true);
 		 /*
 		Historico h = new Historico();
 		h.setAtividade("Desenvolvedor");
