@@ -1,7 +1,7 @@
 package model;
 
 import java.io.Serializable;
-import java.time.YearMonth;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,14 +23,16 @@ public class Aluno implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Transient
-	private final DateTimeFormatter  ANO_MES = DateTimeFormatter.ofPattern("yyyy/MM");
+	private static final DateTimeFormatter  ANO_MES_DIA = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+	@Transient
+	private static  final DateTimeFormatter  ANO_MES = DateTimeFormatter.ofPattern("yyyy/MM");
 	
 	@Id
 	// @GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private String ra;
 	private String nome;
 	private String curso;
-	private YearMonth semestreConclusao;
+	private LocalDate semestreConclusao;
 	private String foto;
 	
 	
@@ -82,7 +84,7 @@ public class Aluno implements Serializable {
 	}
 
 	public void setSemestreConclusao(String semestreConclusao) {
-		this.semestreConclusao = YearMonth.parse(semestreConclusao,ANO_MES);
+		this.semestreConclusao = LocalDate.parse(semestreConclusao+"/01", ANO_MES_DIA);
 	}
 
 	public String getFoto() {

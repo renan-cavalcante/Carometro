@@ -1,7 +1,7 @@
 package model;
 
 import java.io.Serializable;
-import java.time.YearMonth;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import javax.persistence.Entity;
@@ -17,15 +17,16 @@ public class Historico implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Transient
-	private final DateTimeFormatter  ANO_MES = DateTimeFormatter.ofPattern("y,MM");
+	private final DateTimeFormatter ANO_MES = DateTimeFormatter.ofPattern("yy,MM");
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
+	// @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String empresa;
 	private String atividade;
-	private YearMonth tempoEmpresa;
+	private LocalDate tempoEmpresa;
 
 	@OneToOne
 	@JoinColumn(name = "aluno_ra")
@@ -58,25 +59,28 @@ public class Historico implements Serializable {
 	public void setAtividade(String atividade) {
 		this.atividade = atividade;
 	}
-	
-	public YearMonth getTempoEmpresaFormat() {
-		return tempoEmpresa;
-	}
-	
-	public String getTempoEmpresa() {
+
+	public String getTempoEmpresaFormat() {
 		return tempoEmpresa.format(ANO_MES);
 	}
-	
-	public void setTempoEmpresa(YearMonth tempoEmpresa) {
+
+	public LocalDate getTempoEmpresa() {
+		return tempoEmpresa;
+	}
+
+	public void setTempoEmpresa(LocalDate tempoEmpresa) {
 		this.tempoEmpresa = tempoEmpresa;
 	}
 
 	public void setTempoEmpresa(String tempoEmpresa) {
-		this.tempoEmpresa = YearMonth.of(
-			    Integer.parseInt(tempoEmpresa.split(",")[0]),  
-			    Integer.parseInt(tempoEmpresa.split(",")[1])   
-			);
+		String[] parts = tempoEmpresa.split(",");
+
+		String ano = parts[0].length() == 1 ? "000" + parts[0] : "00" + parts[0];
+		String mes = parts[1].length() == 1 ? "0" + parts[1] : parts[1];
+		String dia = "01"; 
+		this.tempoEmpresa = LocalDate.parse(ano+"-"+mes+"-"+dia);
 	}
+
 	public Aluno getAluno() {
 		return aluno;
 	}
@@ -88,7 +92,7 @@ public class Historico implements Serializable {
 	@Override
 	public String toString() {
 		return "Historico [id=" + id + ", empresa=" + empresa + ", atividade=" + atividade + ", tempoEmpresa="
-				+ getTempoEmpresa() + "]" + getTempoEmpresaFormat();
+				+ getTempoEmpresaFormat() + "]";
 	}
 
 }
