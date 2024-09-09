@@ -10,9 +10,9 @@ Este é o código de um carômetro baseado nos protótipos dispostos pela orient
 Este Sistema foi concebido desde a modelagem até o momento de sua implementação.
 
 ## MCU - Modelo de Caso de Uso do Sistema
-![MCU Carometro](https://github.com/user-attachments/assets/6e77f5cf-7781-41d2-859c-0dbcdfe18878)
+![MCU Carometro](https://github.com/user-attachments/assets/d81dd3ca-247c-4d4b-affe-6bd87b6982a3)
 
 ---
 
 ## VCP - Visão de Classe Participante do Sistema
-![VCP - CARÔMETRO](https://github.com/user-attachments/assets/476809c8-8578-4169-a39c-cfe2527b3f31)
+![VCP - CARÔMETRO](https://github.com/user-attachments/assets/0754e04e-fe15-4b56-ac17-c2eff570d893)
